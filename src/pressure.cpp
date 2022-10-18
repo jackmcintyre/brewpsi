@@ -40,9 +40,6 @@ float convertToPSI(float rawAnalog){
 
 void getPressure(){
   //readings[readIndex] = analogRead(pressureInput);
-
-  
-
   //readings[readIndex] = 410;
   readings[readIndex] = 3686;
 
@@ -65,3 +62,4 @@ void getPressure(){
   delay(sensorreadDelay); //delay in milliseconds between read values
 }
 
+//shuffle the above to allow PSI to be returned to main. Ideally, individual readings. May mean having two calls from main - one that returns lots of raw values, and another that averages them before sending to BF

@@ -26,4 +26,6 @@ void log_brewfather(float reading)
 
     Serial.print(httpRequestData);
     Serial.print("\n");
+
+    //make this return status & time of request
 }

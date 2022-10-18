@@ -12,6 +12,8 @@
 #include "main.h"
 #include "pressure.h"
 
+//move screen stuff to it's own file
+
 #define TFT_CS 14  //for D32 Pro
 #define TFT_DC 27  //for D32 Pro
 #define TFT_RST 33 //for D32 Pro
@@ -46,6 +48,9 @@ void setup() {
   tft.begin();
   tft.setRotation(1);
 
+
+  // move wifi stuff to own file
+
   WiFiManager wm;
   bool res;
   res = wm.autoConnect("brewPSI","brewpsi1");
@@ -61,7 +66,7 @@ void setup() {
 
 void loop() {
   getPressure(); //make this return pressure in PSI
-  //postToBrewfather(psi); //return result
+  //postToBrewfather(psi,time); //return result
   printToScreen(/*psi*/);
 } 
   
