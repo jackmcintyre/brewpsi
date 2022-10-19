@@ -13,9 +13,7 @@
 #define TFT_RST 33 //for D32 Pro
 #define TS_CS  12 //for D32 Pro
 
-void screenSetup(){
-
-}
+// Full init of screen each time we use it seems wrong.
 
 unsigned long printToScreen(float psi){
     Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
@@ -30,12 +28,28 @@ unsigned long printToScreen(float psi){
     tft.println("BrewPSI");
     tft.println(" ");
     tft.println(" ");
-    tft.setFont(&FreeSans24pt7b);
+    //tft.setFont(&FreeSans24pt7b);
     tft.setTextColor(ILI9341_WHITE  );
-    tft.println(psi);
+    tft.setTextSize(3);
+    tft.println(String(psi) + " PSI");
     tft.println(" ");
     tft.setFont(&FreeSans12pt7b);
     tft.setTextColor(ILI9341_RED);
+    tft.setTextSize(1);
     tft.println(WiFi.localIP());
+    return micros() - start;
+}
+
+unsigned long printSplashScreen(){
+    Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+    tft.begin();
+    tft.setRotation(1);
+    tft.fillScreen(ILI9341_BLACK);
+    unsigned long start = micros();
+    tft.setCursor(0, 0);
+    tft.setFont(&FreeSans12pt7b);
+    tft.println(" ");
+    tft.println("BrewPSI Starting Up");
+    tft.println("Waiting for reading...");
     return micros() - start;
 }

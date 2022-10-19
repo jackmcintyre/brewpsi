@@ -3,13 +3,8 @@
 
 void log_brewfather(float reading)
 {
-
+    //TODO make the id a variable configurable with wifi settings
     const char* serverName = "http://log.brewfather.net/stream?id=Be8AuvedkrpwLZ";
-
-    // POST /stream?id=Be8AuvedkrpwLZ HTTP/1.1
-    // Host: log.brewfather.net
-    // Content-Type: application/json
-    // Content-Length: 80
 
     String httpRequestData = "{\"name\":\"BrewPSI\",\"pressure\":" + String(reading) + ",\"pressure_unit\":\"PSI\"}";
 
@@ -27,5 +22,5 @@ void log_brewfather(float reading)
     Serial.print(httpRequestData);
     Serial.print("\n");
 
-    //make this return status & time of request
+    //make this return status
 }
