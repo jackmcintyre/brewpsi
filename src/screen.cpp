@@ -18,17 +18,12 @@ extern float bar;
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
-
-// Full init of screen each time we use it seems wrong.
-
 void screenSetup(){
     tft.begin();
+    tft.setRotation(1);
 }
 
 unsigned long printToScreen(){
-    //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
-    //tft.begin();
-    tft.setRotation(1);
     tft.fillScreen(ILI9341_BLACK);
     unsigned long start = micros();
     tft.setCursor(0, 0);
@@ -49,9 +44,6 @@ unsigned long printToScreen(){
 }
 
 unsigned long printSplashScreen(){
-    //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
-    tft.begin();
-    tft.setRotation(1);
     tft.fillScreen(ILI9341_BLACK);
     unsigned long start = micros();
     tft.setCursor(0, 0);

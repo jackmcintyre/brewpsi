@@ -4,7 +4,7 @@
 
 float psi;
 float bar;
-int loopCount = 14; //Loop 15 times before posting to brewfather.
+int loopCount = 60*15; //every 15 minutes, post to brewfather
 int readingCount = 0;
 
 //#include "main.h"
