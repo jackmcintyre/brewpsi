@@ -4,12 +4,13 @@
 
 float psi;
 float bar;
-int loopCount = 15; //Loop 15 times before posting to brewfather. Do maths working back from 15 mins.
+int loopCount = 14; //Loop 15 times before posting to brewfather.
 int readingCount = 0;
 
 //#include "main.h"
 #include "pressure.h"
 #include "screen.h"
+#include "brewfather.h"
 
 void setup(){
   Serial.begin(115200);
@@ -37,8 +38,7 @@ void loop(){
   Serial.println(String(psi) + " psi");
 
   if (readingCount >= loopCount) {
-    //log to brewfather
-    Serial.println("Log to BF");
+    log_brewfather();
     readingCount = 0;
   }
   readingCount = readingCount + 1;
