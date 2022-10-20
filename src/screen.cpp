@@ -28,14 +28,12 @@ unsigned long printToScreen(float psi){
     tft.println("BrewPSI");
     tft.println(" ");
     tft.println(" ");
-    //tft.setFont(&FreeSans24pt7b);
+    tft.setFont(&FreeSans24pt7b);
     tft.setTextColor(ILI9341_WHITE  );
-    tft.setTextSize(3);
-    tft.println(String(psi) + " PSI");
-    tft.println(" ");
-    tft.setFont(&FreeSans12pt7b);
+    //TODO test that this is rounding, not truncating
+    tft.println(String(psi,1) + " PSI");
     tft.setTextColor(ILI9341_RED);
-    tft.setTextSize(1);
+    tft.setFont(&FreeSans12pt7b);
     tft.println(WiFi.localIP());
     return micros() - start;
 }
@@ -49,7 +47,7 @@ unsigned long printSplashScreen(){
     tft.setCursor(0, 0);
     tft.setFont(&FreeSans12pt7b);
     tft.println(" ");
-    tft.println("BrewPSI Starting Up");
+    tft.println("BrewPSI is starting.");
     tft.println("Waiting for reading...");
     return micros() - start;
 }
