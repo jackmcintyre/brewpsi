@@ -3,6 +3,7 @@
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 
 float psi;
+float bar;
 int loopCount = 15; //Loop 15 times before posting to brewfather. Do maths working back from 15 mins.
 int readingCount = 0;
 
@@ -33,13 +34,14 @@ void setup(){
 void loop(){
   getPressure();
 
+  Serial.println(String(psi) + " psi");
+
   if (readingCount >= loopCount) {
     //log to brewfather
-    Serial.print("Log to BF");
-    Serial.print("\n");
+    Serial.println("Log to BF");
     readingCount = 0;
   }
   readingCount = readingCount + 1;
-  printToScreen(psi);
+  printToScreen();
 } 
   

@@ -8,6 +8,9 @@
 
 #include <WiFiManager.h>
 
+extern float psi;
+extern float bar;
+
 #define TFT_CS 14  //for D32 Pro
 #define TFT_DC 27  //for D32 Pro
 #define TFT_RST 33 //for D32 Pro
@@ -15,7 +18,7 @@
 
 // Full init of screen each time we use it seems wrong.
 
-unsigned long printToScreen(float psi){
+unsigned long printToScreen(){
     Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
     tft.begin();
     tft.setRotation(1);
@@ -30,8 +33,8 @@ unsigned long printToScreen(float psi){
     tft.println(" ");
     tft.setFont(&FreeSans24pt7b);
     tft.setTextColor(ILI9341_WHITE  );
-    //TODO test that this is rounding, not truncating
     tft.println(String(psi,1) + " PSI");
+    tft.println(String(bar,1) + " BAR");
     tft.setTextColor(ILI9341_RED);
     tft.setFont(&FreeSans12pt7b);
     tft.println(WiFi.localIP());

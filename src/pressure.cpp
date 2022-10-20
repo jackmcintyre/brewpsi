@@ -3,6 +3,9 @@
 #include "pressure.h"
 #include "brewfather.h"
 
+extern float psi;
+extern float bar;
+
 const int adcmax = 4095;
 
 const int pressureInput = 34; //select the analog input pin for the pressure transducer
@@ -17,7 +20,6 @@ const float mpaToPsi = 145.037737797;
 
 float rawAnalog = 0;
 float mpa;
-extern float psi;
 
 void getPressure(){
   rawAnalog = analogRead(pressureInput);
@@ -26,5 +28,6 @@ void getPressure(){
   float voltage = rawAnalog/adcmax*3.3;
   mpa = (voltage - voltageBuffer) * pressuretransducermaxmpa / ((3.3-voltageBuffer) - voltageBuffer);
   psi = mpa * mpaToPsi;
+  bar = mpa * 10;
   delay(sensorreadDelay); //delay in milliseconds between read values
 }
