@@ -16,11 +16,18 @@ extern float bar;
 #define TFT_RST 33 //for D32 Pro
 #define TS_CS  12 //for D32 Pro
 
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+
+
 // Full init of screen each time we use it seems wrong.
 
-unsigned long printToScreen(){
-    Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+void screenSetup(){
     tft.begin();
+}
+
+unsigned long printToScreen(){
+    //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+    //tft.begin();
     tft.setRotation(1);
     tft.fillScreen(ILI9341_BLACK);
     unsigned long start = micros();
@@ -42,7 +49,7 @@ unsigned long printToScreen(){
 }
 
 unsigned long printSplashScreen(){
-    Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+    //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
     tft.begin();
     tft.setRotation(1);
     tft.fillScreen(ILI9341_BLACK);

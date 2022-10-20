@@ -15,6 +15,7 @@ int readingCount = 0;
 void setup(){
   Serial.begin(115200);
   
+  screenSetup();
   printSplashScreen();
 
   // move wifi stuff to own file?
