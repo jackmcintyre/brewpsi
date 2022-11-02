@@ -4,6 +4,7 @@
 #include <LittleFS.h>
 #include <FS.h>
 
+
 float psi;
 float bar;
 int loopCount = 60*15; //every 15 minutes, post to brewfather
@@ -47,14 +48,14 @@ void setup(){
   fsSetup();
   screenSetup();
   printSplashScreen();
+  setupPressure();
 
   // move wifi stuff to own file?
-
   //wm.resetSettings();
 
   int customFieldLength = 40;
 
-  new (&custom_field) WiFiManagerParameter("brewfather_id", "Brewfather Stream ID", "Brewfather Stream ID", customFieldLength,"placeholder=\"Brewfather Stream ID\" type=\"input\""); // custom html type
+  new (&custom_field) WiFiManagerParameter("brewfather_id", "Brewfather Stream ID", "Be8AuvedkrpwLZ", customFieldLength,"placeholder=\"Brewfather Stream ID\" type=\"input\""); // custom html type
   wm.addParameter(&custom_field);
   wm.setSaveParamsCallback(saveParamCallback);
 
@@ -68,15 +69,10 @@ void setup(){
     Serial.println("Wifi Connected!");
   }
 
-  brewfatherId = readFile(LittleFS, "/brewfatherId.txt");
-  Serial.println("brewfatherId: " + String(brewfatherId));
-
 }
 
 void loop(){
   getPressure();
-
-  Serial.println(String(psi) + " psi");
 
   if (readingCount >= loopCount) {
     log_brewfather();

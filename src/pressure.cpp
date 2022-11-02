@@ -2,32 +2,43 @@
 #include "SoftwareSerial.h"
 #include "pressure.h"
 #include "brewfather.h"
+// #include <driver/adc.h>
+// #include "esp_adc_cal.h"
+
+#include <ESP32AnalogRead.h>
+ESP32AnalogRead adc;
 
 extern float psi;
 extern float bar;
 
-const int adcmax = 4095;
-
 const int pressureInput = 34; //select the analog input pin for the pressure transducer
-const float pressuretransducermaxmpa = 0.2000; //mpa value of transducer being used
+
+const float sensorMin = 0.0000; //mpa value of transducer being used
+const float sensorMax = 0.2000; //mpa value of transducer being used
 //const int sensorreadDelay = 60*1000; //Take a reading once per minute
 const int sensorreadDelay = 1000; //Take a reading once per second
 //const int numReadings = 15;     //Average 15 readings
 
-const float voltageBuffer = 3.3*0.1; //10% of range at each end is not used (ie 0.5..4.5v)
 const float mpaToPsi = 145.037737797;
 
-
-float rawAnalog = 0;
-float mpa;
+void setupPressure(){
+  adc.attach(34);
+}
 
 void getPressure(){
-  rawAnalog = analogRead(pressureInput);
-  //readings[readIndex] = analogRead(pressureInput);
-  //convertToPSI(readings[readIndex]);
-  float voltage = rawAnalog/adcmax*3.3;
-  mpa = (voltage - voltageBuffer) * pressuretransducermaxmpa / ((3.3-voltageBuffer) - voltageBuffer);
+  //int rawAnalog = analogRead(pressureInput);
+  float voltage = adc.readVoltage();
+  float mpa = mapFloat(voltage, 0.33, 2.97, sensorMin, sensorMax);    // variation on the Arduino map() function
+
   psi = mpa * mpaToPsi;
   bar = mpa * 10;
+
+  //Serial.println("raw " + String(rawAnalog) + " psi: " + String(psi,1)+ " mpa: " + String(mpa) + " v: " + String(voltage));
+
   delay(sensorreadDelay); //delay in milliseconds between read values
+}
+
+float mapFloat(float x, float in_min, float in_max, float out_min, float out_max)
+{
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
