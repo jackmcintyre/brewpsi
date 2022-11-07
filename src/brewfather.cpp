@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <HTTPClient.h>
 #include <LittleFS.h>
-
 #include "filesystem.h"
 
 extern float psi;
@@ -21,6 +20,4 @@ void log_brewfather()
     http.addHeader("Content-Type", "application/json");
     int httpResponseCode = http.POST(httpRequestData);
     http.end();
-
-    //make this return status?
 }
